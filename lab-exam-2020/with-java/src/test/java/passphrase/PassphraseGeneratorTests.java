@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
 public class PassphraseGeneratorTests {
 
     private final List<String> lowers;
@@ -19,12 +22,21 @@ public class PassphraseGeneratorTests {
 
     @Test
     public void generatePassphraseNotContainUppers(){
-         var passphrase = new PassphraseGenerator(true,false,true);
-         var notUpperCase =passphrase.generate(1024);
-         assertEquals("",)
-        }
-
+        var passphrase = new PassphraseGenerator(true,false,true);
+        var notUpperCase =passphrase.generate(1024);
+        for(int i = 1;i<=10000;i++)assertNotEquals(uppers,notUpperCase);
     }
-
+    @Test
+    public void generatePassphraseBySpecifiedLength(){
+        var passphrase = new PassphraseGenerator(true,true,true);
+        var length = passphrase.generate(8);
+        assertEquals(8,length.length());
+    }
+    @Test
+    public void generateEmptyWhenAllConfiglsFalse(){
+        var passphrase = new PassphraseGenerator(false,false,false);
+        var empty = passphrase.generate(3);
+        assertEquals("",empty);
+    }
 
 }
